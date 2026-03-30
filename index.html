@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Александр Ильин</title>
+<title>Александр Ильин — CRM-маркетолог</title>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -105,19 +105,7 @@ body{
 }
 @keyframes blink{0%,100%{opacity:0.4}50%{opacity:1}}
 
-/* decorative label top-right */
-.hero-tag{
-  position:absolute;
-  top:36px;right:36px;
-  background:var(--accent2);
-  color:#1a1a1a;
-  font-family:"Unbounded",sans-serif;
-  font-size:10px;font-weight:700;
-  padding:8px 16px;
-  border-radius:30px;
-  letter-spacing:0.08em;
-  z-index:2;
-}
+
 
 /* ========== LETTER PANEL ========== */
 .letter-panel{
@@ -345,8 +333,7 @@ canvas{
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-tag"></div>
-  <div class="envelope-wrap" onclick="openLetter()">
+<div class="envelope-wrap" onclick="openLetter()">
     <div class="envelope">
       <div class="badge">1</div>
       <svg viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -470,7 +457,7 @@ function spinWheel(){
   document.getElementById("wheelResult").classList.remove("show");
   const extra=(Math.random()*2+6)*Math.PI*2;
   const dur=3600;
-  const start=performance.now();А
+  const start=performance.now();
   const startA=angle;
   function ease(t){return t<0.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
   function frame(now){
