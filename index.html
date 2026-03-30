@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Александр Ильин — CRM-маркетолог</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:#faf8f4;
+  color:#1a1a1a;
+  font-family:"Manrope",sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  overflow-x:hidden;
+  min-height:100vh;
+}
+:root{
+  --accent:#e8320a;
+  --accent2:#f5a800;
+  --accent3:#1e6fff;
+  --bg:#faf8f4;
+  --card:#ffffff;
+  --border:#ddd8cc;
+  --gray:#888;
+}
+
+/* ========== HERO ========== */
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:flex-start;
+  justify-content:flex-start;
+  padding:80px 60px;
+  position:relative;
+  overflow:hidden;
+}
+
+/* decorative corner blobs */
+.hero::before{
+  content:"";
+  position:absolute;
+  width:340px;height:340px;
+  background:radial-gradient(circle,rgba(232,50,10,0.13) 0%,transparent 70%);
+  bottom:-60px;right:-60px;
+  pointer-events:none;
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  width:220px;height:220px;
+  background:radial-gradient(circle,rgba(245,168,0,0.15) 0%,transparent 70%);
+  top:60px;right:120px;
+  pointer-events:none;
+}
+
+.envelope-wrap{
+  cursor:pointer;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:14px;
+  z-index:2;
+  position:relative;
+  user-select:none;
+  margin-top:40px;
+  margin-left:20px;
+}
+.envelope{
+  width:110px;height:110px;
+  position:relative;
+  animation:wiggle 3s ease-in-out infinite;
+  filter:drop-shadow(0 8px 24px rgba(232,50,10,0.2));
+}
+@keyframes wiggle{
+  0%,100%{transform:rotate(0deg)}
+  15%{transform:rotate(-6deg)}
+  30%{transform:rotate(6deg)}
+  45%{transform:rotate(-3deg)}
+  60%{transform:rotate(3deg)}
+  75%{transform:rotate(-1deg)}
+}
+.envelope svg{width:100%;height:100%}
+.badge{
+  position:absolute;
+  top:-6px;right:-6px;
+  background:var(--accent);
+  color:#fff;
+  font-family:"Unbounded",sans-serif;
+  font-size:13px;font-weight:900;
+  width:28px;height:28px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(232,50,10,0.4);
+}
+.hero-hint{
+  font-size:13px;
+  color:var(--gray);
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  animation:blink 2s ease-in-out infinite;
+  font-weight:600;
+}
+@keyframes blink{0%,100%{opacity:0.4}50%{opacity:1}}
+
+/* decorative label top-right */
+.hero-tag{
+  position:absolute;
+  top:36px;right:36px;
+  background:var(--accent2);
+  color:#1a1a1a;
+  font-family:"Unbounded",sans-serif;
+  font-size:10px;font-weight:700;
+  padding:8px 16px;
+  border-radius:30px;
+  letter-spacing:0.08em;
+  z-index:2;
+}
+
+/* ========== LETTER PANEL ========== */
+.letter-panel{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-60%) scale(0.92);
+  width:min(620px, calc(100vw - 32px));
+  background:#ffffff;
+  border-radius:24px;
+  box-shadow:0 24px 80px rgba(0,0,0,0.18), 0 4px 16px rgba(232,50,10,0.08);
+  padding:40px 44px;
+  z-index:200;
+  opacity:0;
+  pointer-events:none;
+  transition:
+    opacity 0.4s cubic-bezier(0.34,1.2,0.64,1),
+    transform 0.4s cubic-bezier(0.34,1.2,0.64,1);
+  border-top:5px solid var(--accent);
+}
+.letter-panel.open{
+  opacity:1;
+  pointer-events:all;
+  transform:translate(-50%,-50%) scale(1);
+}
+.letter-close{
+  position:absolute;
+  top:16px;right:20px;
+  background:none;border:none;
+  font-size:20px;color:#bbb;
+  cursor:pointer;line-height:1;
+  font-weight:700;
+  transition:color 0.2s;
+}
+.letter-close:hover{color:#555}
+
+.letter-header{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  margin-bottom:28px;
+  padding-bottom:20px;
+  border-bottom:2px solid #f0ede6;
+}
+.letter-photo{
+  width:68px;height:68px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid var(--accent);
+  flex-shrink:0;
+}
+.letter-name{
+  font-family:"Unbounded",sans-serif;
+  font-size:17px;font-weight:700;
+  line-height:1.2;
+  color:#1a1a1a;
+}
+.letter-role{
+  font-size:13px;color:var(--gray);
+  margin-top:4px;
+  font-weight:500;
+}
+
+.letter-body{
+  font-size:15px;
+  line-height:1.75;
+  color:#2a2a2a;
+}
+.letter-body p{margin-bottom:14px}
+.letter-body p:last-child{margin-bottom:0}
+.letter-body strong{color:#1a1a1a;font-weight:700}
+.letter-body .hi{
+  font-family:"Unbounded",sans-serif;
+  font-size:22px;font-weight:900;
+  color:var(--accent);
+  display:block;
+  margin-bottom:18px;
+}
+.letter-chip{
+  display:inline-block;
+  background:#fff5f2;
+  color:var(--accent);
+  font-weight:700;
+  font-size:13px;
+  padding:4px 12px;
+  border-radius:20px;
+  border:1.5px solid rgba(232,50,10,0.2);
+  margin:2px 4px 2px 0;
+}
+
+/* overlay */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.35);
+  z-index:150;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.35s;
+  backdrop-filter:blur(3px);
+}
+.overlay.show{opacity:1;pointer-events:all}
+
+/* CTR float */
+.ctr-float{
+  position:fixed;
+  top:calc(50vh - 140px);
+  left:50%;
+  transform:translateX(-50%) translateY(0);
+  background:var(--accent);
+  color:#fff;
+  font-family:"Unbounded",sans-serif;
+  font-size:12px;font-weight:700;
+  padding:9px 20px;
+  border-radius:30px;
+  pointer-events:none;
+  opacity:0;
+  z-index:300;
+  transition:opacity 0.3s,transform 0.4s;
+}
+.ctr-float.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(-14px);
+}
+
+/* ========== WHEEL SECTION ========== */
+.wheel-section{
+  max-width:600px;
+  margin:0 auto;
+  padding:80px 24px 120px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+.section-label{
+  font-family:"Unbounded",sans-serif;
+  font-size:10px;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:12px;
+  font-weight:700;
+}
+h2{
+  font-family:"Unbounded",sans-serif;
+  font-size:clamp(22px,4vw,32px);
+  font-weight:900;
+  line-height:1.25;
+  margin-bottom:40px;
+  color:#1a1a1a;
+}
+.wheel-container{
+  position:relative;
+  width:260px;height:260px;
+  margin:0 auto;
+}
+.wheel-pointer{
+  position:absolute;
+  top:-16px;left:50%;
+  transform:translateX(-50%);
+  font-size:30px;
+  z-index:2;
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+canvas{
+  border-radius:50%;
+  cursor:pointer;
+  box-shadow:0 8px 40px rgba(232,50,10,0.2), 0 2px 12px rgba(0,0,0,0.1);
+}
+.spin-btn{
+  margin-top:32px;
+  background:var(--accent);
+  color:#fff;
+  border:none;border-radius:50px;
+  padding:16px 44px;
+  font-family:"Unbounded",sans-serif;
+  font-size:13px;font-weight:700;
+  cursor:pointer;letter-spacing:0.06em;
+  transition:transform 0.2s,box-shadow 0.2s;
+  box-shadow:0 6px 24px rgba(232,50,10,0.35);
+}
+.spin-btn:hover{
+  transform:scale(1.04);
+  box-shadow:0 10px 32px rgba(232,50,10,0.45);
+}
+.spin-btn:disabled{
+  opacity:0.45;cursor:not-allowed;
+  transform:none;box-shadow:none;
+}
+.wheel-result{
+  margin-top:24px;
+  font-size:15px;line-height:1.7;
+  min-height:28px;
+  opacity:0;transition:opacity 0.5s;
+  background:#fff;
+  border-radius:14px;
+  padding:18px 24px;
+  border:2px solid var(--accent);
+  font-weight:600;
+}
+.wheel-result.show{opacity:1}
+.wheel-result a{
+  color:var(--accent);
+  font-weight:700;
+  text-decoration:none;
+}
+.wheel-result a:hover{text-decoration:underline}
+
+/* divider between hero and wheel */
+.divider-section{
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--border) 20%,var(--border) 80%,transparent);
+  margin:0 40px;
+}
+</style>
+</head>
+<body>
+
+<!-- CTR float -->
+<div class="ctr-float" id="ctrFloat">📈 CTR 100%!</div>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay" onclick="closeLetter()"></div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">CRM-маркетолог</div>
+  <div class="envelope-wrap" onclick="openLetter()">
+    <div class="envelope">
+      <div class="badge">1</div>
+      <svg viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="110" height="110" rx="22" fill="#ffffff" stroke="#ddd8cc" stroke-width="1.5"/>
+        <rect x="14" y="30" width="82" height="52" rx="8" fill="#faf8f4" stroke="#ddd8cc" stroke-width="1"/>
+        <path d="M14 38L55 64L96 38" stroke="#e8320a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- small star decoration -->
+        <circle cx="88" cy="24" r="4" fill="#f5a800"/>
+        <circle cx="22" cy="90" r="3" fill="#1e6fff" opacity="0.5"/>
+      </svg>
+    </div>
+    <div class="hero-hint">Вам письмо!</div>
+  </div>
+</div>
+
+<!-- LETTER PANEL (centered modal) -->
+<div class="letter-panel" id="letterPanel">
+  <button class="letter-close" onclick="closeLetter()">✕</button>
+  <div class="letter-header">
+    <img class="letter-photo" src="photo.jpg" alt="Александр">
+    <div>
+      <div class="letter-name">Александр Ильин</div>
+      <div class="letter-role">Junior CRM-маркетолог • Санкт-Петербург</div>
+    </div>
+  </div>
+  <div class="letter-body">
+    <span class="hi">Привет! 👋</span>
+    <p>Меня зовут <strong>Саша!</strong></p>
+    <p>Ранее я работал в SEO 🔍 — трафик и конверсия для меня не пустой звук.</p>
+    <p>Сейчас я хочу скорректировать направление карьеры и ворваться 🚀 в <strong>CRM-маркетинг.</strong></p>
+    <p>Я уже прошёл базовый курс от <span class="letter-chip">Mindbox 🟢</span> и посмотрел почти все видео на канале <span class="letter-chip">RetailCRM 🔵</span></p>
+    <p>Мне ещё многому нужно научиться, но я более чем готов! 📈</p>
+    <p>Если у вас вакантная позиция <strong>Junior CRM-маркетолог</strong>, то я бы очень хотел на неё претендовать! 🙏</p>
+  </div>
+</div>
+
+<!-- DIVIDER -->
+<div class="divider-section"></div>
+
+<!-- WHEEL -->
+<div class="wheel-section">
+  <div class="section-label">Финал</div>
+  <h2>Крутани вертушку</h2>
+  <div class="wheel-container">
+    <div class="wheel-pointer">▼</div>
+    <canvas id="wheelCanvas" width="260" height="260"></canvas>
+  </div>
+  <button class="spin-btn" id="spinBtn" onclick="spinWheel()">Крутить!</button>
+  <div class="wheel-result" id="wheelResult"></div>
+</div>
+
+<script>
+// LETTER
+function openLetter(){
+  document.getElementById("letterPanel").classList.add("open");
+  document.getElementById("overlay").classList.add("show");
+  setTimeout(()=>{
+    const p=document.getElementById("ctrFloat");
+    p.classList.add("show");
+    setTimeout(()=>p.classList.remove("show"),2400);
+  },400);
+}
+function closeLetter(){
+  document.getElementById("letterPanel").classList.remove("open");
+  document.getElementById("overlay").classList.remove("show");
+}
+
+// WHEEL
+const canvas=document.getElementById("wheelCanvas");
+const ctx=canvas.getContext("2d");
+const segs=["🎯","⭐","🚀","💡","🎁","🔥","✨","🎪"];
+const cols=[
+  "#e8320a","#f5a800","#1e6fff","#2ecc71",
+  "#e8320a","#f5a800","#1e6fff","#2ecc71"
+];
+const n=segs.length;
+let angle=0,spinning=false;
+
+function drawWheel(rot){
+  ctx.clearRect(0,0,260,260);
+  const cx=130,cy=130,r=124;
+  for(let i=0;i<n;i++){
+    const s=rot+(i/n)*Math.PI*2;
+    const e=rot+((i+1)/n)*Math.PI*2;
+    ctx.beginPath();
+    ctx.moveTo(cx,cy);
+    ctx.arc(cx,cy,r,s,e);
+    ctx.closePath();
+    ctx.fillStyle=cols[i];
+    ctx.fill();
+    ctx.strokeStyle="#faf8f4";
+    ctx.lineWidth=3;
+    ctx.stroke();
+    ctx.save();
+    ctx.translate(cx,cy);
+    ctx.rotate(rot+(i+0.5)/n*Math.PI*2);
+    ctx.textAlign="right";
+    ctx.font="24px serif";
+    ctx.fillText(segs[i],r-18,8);
+    ctx.restore();
+  }
+  // center hub
+  ctx.beginPath();
+  ctx.arc(cx,cy,20,0,Math.PI*2);
+  ctx.fillStyle="#ffffff";
+  ctx.fill();
+  ctx.strokeStyle="#faf8f4";
+  ctx.lineWidth=4;
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(cx,cy,12,0,Math.PI*2);
+  ctx.fillStyle="#e8320a";
+  ctx.fill();
+}
+drawWheel(0);
+
+function spinWheel(){
+  if(spinning)return;
+  spinning=true;
+  document.getElementById("spinBtn").disabled=true;
+  document.getElementById("wheelResult").classList.remove("show");
+  const extra=(Math.random()*2+6)*Math.PI*2;
+  const dur=3600;
+  const start=performance.now();А
+  const startA=angle;
+  function ease(t){return t<0.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+  function frame(now){
+    const t=Math.min((now-start)/dur,1);
+    angle=startA+extra*ease(t);
+    drawWheel(angle);
+    if(t<1){requestAnimationFrame(frame)}
+    else{
+      spinning=false;
+      document.getElementById("spinBtn").disabled=false;
+      const r=document.getElementById("wheelResult");
+      r.innerHTML='🎉 Поздравляем! Вы выиграли контакты кандидата:<br><a href="https://t.me/alexilinw" target="_blank">@alexilinw в Telegram</a>';
+      r.classList.add("show");
+    }
+  }
+  requestAnimationFrame(frame);
+}
+</script>
+</body>
+</html>
